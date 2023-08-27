@@ -10,7 +10,7 @@ def input_error(func):
         except ValueError:
             return "Error: Invalid input. Please enter name and phone number."
         except IndexError:
-            return "Error: Invalid input. Please enter name and phone number."
+            return "Error: You don't have any contacts yet."
     return inner
 
     
@@ -39,7 +39,7 @@ def change_contact(name, phone):
 @input_error
 def show_contacts():
     if not phone_book:
-        raise ValueError
+        raise IndexError
     for name, phone in phone_book.items():
         return f"{name}: {phone}\n"
 

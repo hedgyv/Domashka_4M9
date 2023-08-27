@@ -59,20 +59,30 @@ def main():
             print("How can I help you? \n")
 
         elif split_command == 'add':
-            print(add_contact(do_requirement_parts[1], do_requirement_parts[2]))
+            if len(do_requirement_parts) < 3:
+                print("Error: Tap an existed name and new phone")
+            else:
+                print(add_contact(do_requirement_parts[1], do_requirement_parts[2]))
 
         elif split_command == 'change':
-            print(change_contact(do_requirement_parts[1], do_requirement_parts[2]))
+            if len(do_requirement_parts) < 3:
+                print("Error: Tap an existed name and new phone")
+            else:
+                print(change_contact(do_requirement_parts[1], do_requirement_parts[2]))
 
         elif split_command == 'phone':
-            print(find_contact(do_requirement_parts[1]))
+            if len(do_requirement_parts) < 2:
+                print("Error: Tap an existed name")
+            else:
+                print(find_contact(do_requirement_parts[1]))
             
         elif do_requirement == 'show all':
             print(show_contacts())
 
-        elif do_requirement in ('good bye', 'close', 'exit'):
+        elif do_requirement.lower() in ('good bye', 'close', 'exit'):
             print("Good bye")
             break
+
         else:
             print("Use command only: 'hello', 'add', 'change', 'phone', 'show all', 'good bye', 'close', or 'exit'")
 if __name__ == '__main__':

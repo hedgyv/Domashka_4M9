@@ -42,48 +42,108 @@ def show_contacts():
         raise IndexError
     for name, phone in phone_book.items():
         return f"{name}: {phone}\n"
+    
+def handle_requirement(req):
+    split_command = ''
+    for char in req:
+        if char != ' ':
+            split_command += char.lower()
+        else:
+            break
+    return split_command
+
+def split_req(req):
+    return req.split()
+
 
 def main():
+
+
+    def hello_func():
+        print("How can I help you? \n")
+
+    def add_func():
+        if len(do_requirement_parts) < 3:
+            print("Error: Tap an existed name and new phone")
+        else:
+            print(add_contact(do_requirement_parts[1], do_requirement_parts[2]))
+    
+    def change_func():
+        if len(do_requirement_parts) < 3:
+            print("Error: Tap an existed name and new phone")
+        else:
+            print(change_contact(do_requirement_parts[1], do_requirement_parts[2]))
+
+    def phone_func():
+        if len(do_requirement_parts) < 2:
+            print("Error: Tap an existed name")
+        else:
+            print(find_contact(do_requirement_parts[1]))
+    
+    def show_all_func():
+        print(show_contacts())
+
+
     while True:
         do_requirement = input(f'Write your command: ')
-        do_requirement_parts = do_requirement.split()
 
-        split_command = ''
-        for char in do_requirement:
-            if char != ' ':
-                split_command += char.lower()
-            else:
+        do_requirement_parts = split_req(do_requirement)
+
+        split_command = handle_requirement(do_requirement)
+        
+        all_commands = {
+            'hello': hello_func,
+            'add': add_func,
+            'change': change_func,
+            'phone': phone_func,
+            'show all': show_all_func,
+            'good bye': lambda: print("Good bye!"),
+            'close': lambda: print("Good bye!"),
+            'exit': lambda: print("Good bye!")
+        }
+
+
+        if do_requirement in all_commands:
+            all_commands[do_requirement]()
+            if do_requirement.lower() in ('good bye', 'close', 'exit'):
                 break
-        #print(do_requirement_parts)
-        if split_command == 'hello':
-            print("How can I help you? \n")
+        
+        elif split_command in all_commands:
+            all_commands[split_command]()
 
-        elif split_command == 'add':
-            if len(do_requirement_parts) < 3:
-                print("Error: Tap an existed name and new phone")
-            else:
-                print(add_contact(do_requirement_parts[1], do_requirement_parts[2]))
-
-        elif split_command == 'change':
-            if len(do_requirement_parts) < 3:
-                print("Error: Tap an existed name and new phone")
-            else:
-                print(change_contact(do_requirement_parts[1], do_requirement_parts[2]))
-
-        elif split_command == 'phone':
-            if len(do_requirement_parts) < 2:
-                print("Error: Tap an existed name")
-            else:
-                print(find_contact(do_requirement_parts[1]))
-            
-        elif do_requirement == 'show all':
-            print(show_contacts())
-
-        elif do_requirement.lower() in ('good bye', 'close', 'exit'):
-            print("Good bye")
-            break
 
         else:
             print("Use command only: 'hello', 'add', 'change', 'phone', 'show all', 'good bye', 'close', or 'exit'")
 if __name__ == '__main__':
     main()
+
+
+
+         ###COMMENTS
+        # if split_command == 'hello':
+        #     print("How can I help you? \n")
+
+        # elif split_command == 'add':
+        #     if len(do_requirement_parts) < 3:
+        #         print("Error: Tap an existed name and new phone")
+        #     else:
+        #         print(add_contact(do_requirement_parts[1], do_requirement_parts[2]))
+
+        # elif split_command == 'change':
+        #     if len(do_requirement_parts) < 3:
+        #         print("Error: Tap an existed name and new phone")
+        #     else:
+        #         print(change_contact(do_requirement_parts[1], do_requirement_parts[2]))
+
+        # elif split_command == 'phone':
+        #     if len(do_requirement_parts) < 2:
+        #         print("Error: Tap an existed name")
+        #     else:
+        #         print(find_contact(do_requirement_parts[1]))
+            
+        # elif do_requirement == 'show all':
+        #     print(show_contacts())
+
+        # elif do_requirement.lower() in ('good bye', 'close', 'exit'):
+        #     print("Good bye")
+        #     break   
